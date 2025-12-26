@@ -1,7 +1,7 @@
 # Калькулятор перекупа
 
 <div align="center">
-  <img src="img/logo.jpg" alt="Логотип" width="200"/>
+  <img src="OverboughtCalculatorApp/img/logo.jpg" alt="Логотип" width="200"/>
   
   **Приложение для учёта доходов, расходов и баланса при торговле и перепродаже товаров**
   
@@ -32,13 +32,13 @@
 <div align="center">
   
 ### Главный экран с калькулятором
-<img src="img/1.jpg" alt="Главный экран" width="300"/>
+<img src="OverboughtCalculatorApp/img/1.jpg" alt="Главный экран" width="300"/>
 
 ### Блок баланса и история операций
-<img src="img/2.jpg" alt="Баланс и история" width="300"/>
+<img src="OverboughtCalculatorApp/img/2.jpg" alt="Баланс и история" width="300"/>
 
 ### Раздел "Избранное" с товарами
-<img src="img/3.jpg" alt="Избранное" width="300"/>
+<img src="OverboughtCalculatorApp/img/3.jpg" alt="Избранное" width="300"/>
 
 </div>
 
@@ -60,7 +60,7 @@
 1. **Клонируйте репозиторий**
    ```bash
    git clone <repository-url>
-   cd OverboughtCalculatorAppWindows
+   cd OverboughtCalculatorApp
    ```
 
 2. **Установите зависимости**
