@@ -5,11 +5,13 @@ class BalanceState {
   final double earned; // Заработано
   final double spent; // Потрачено
   final double balance; // Баланс
+  final double marginPercent; // Маржинальность в %
 
   const BalanceState({
     this.earned = 0,
     this.spent = 0,
     this.balance = 0,
+    this.marginPercent = 0,
   });
 }
 
@@ -29,10 +31,14 @@ final balanceProvider = Provider<BalanceState>((ref) {
         }
       }
 
+      final balance = earned - spent;
+      final marginPercent = earned > 0 ? (balance / earned) * 100 : 0.0;
+
       return BalanceState(
         earned: earned,
         spent: spent,
-        balance: earned - spent,
+        balance: balance,
+        marginPercent: marginPercent,
       );
     },
     loading: () => const BalanceState(),

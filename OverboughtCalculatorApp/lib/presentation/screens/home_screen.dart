@@ -18,6 +18,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _commentController = TextEditingController();
 
+  double? _parseAmount(String input) {
+    final normalized = input.trim().replaceAll(',', '.');
+    if (normalized.isEmpty) return null;
+    return double.tryParse(normalized);
+  }
+
+  void _toggleAmountSign() {
+    final raw = _amountController.text.trim();
+    if (raw.isEmpty) {
+      _amountController.text = '-';
+      _amountController.selection = TextSelection.fromPosition(
+        TextPosition(offset: _amountController.text.length),
+      );
+      return;
+    }
+
+    if (raw.startsWith('-')) {
+      _amountController.text = raw.substring(1);
+    } else {
+      _amountController.text = '-$raw';
+    }
+    _amountController.selection = TextSelection.fromPosition(
+      TextPosition(offset: _amountController.text.length),
+    );
+  }
+
   void _addTransaction() {
     final amountText = _amountController.text.trim();
     if (amountText.isEmpty) {
@@ -27,7 +53,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       return;
     }
 
-    final amount = double.tryParse(amountText);
+    final amount = _parseAmount(amountText);
     if (amount == null || amount == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Введите корректную сумму')),
@@ -138,13 +164,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         labelText: 'Сумма (например: 50 или -50)',
                         hintText: '50 или -50',
                         prefixIcon: const Icon(Icons.attach_money),
+                        suffixIcon: IconButton(
+                          tooltip: 'Поставить минус',
+                          onPressed: _toggleAmountSign,
+                          icon: const Text(
+                            '+/-',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
-                          RegExp(r'^-?\d*\.?\d*'),
+                          RegExp(r'^-?\d*[.,]?\d*$'),
                         ),
                       ],
                     ),
